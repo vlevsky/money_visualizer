@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foreign Currency Visualizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+            background-color: #1c3b99;
+            color: #ffffff;
+        }
+        input, select, button {
+            font-size: 16px;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #005f8a;
+            border-radius: 8px;
+        }
+        button {
+            background-color: #006f3f;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        button:hover {
+            background-color: #005f8a;
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 95, 138, 0.6);
+        }
+        button:active {
+            background-color: #004d2d;
+        }
+        .output {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .image {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .coin {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 8px;
+            font-weight: bold;
+            color: white;
+            font-size: 18px;
+        }
+        .yen-icon { background-color: #268bd2; }
+        .euro-icon { background-color: #6c71c4; }
+        .pound-icon { background-color: #cb4b16; }
+        .canada-icon { background-color: #2aa198; }
+        .franc-icon { background-color: #93a1a1; }
+        .rupee-icon { background-color: #859900; }
+        .yuan-icon { background-color: #b58900; }
+        .won-icon { background-color: #d33682; }
+        .real-icon { background-color: #268bd2; }
+        .peso-icon { background-color: #ffb347; }
+        .lira-icon { background-color: #0074d9; }
+        .dinar-icon { background-color: #85144b; }
+        .shekel-icon { background-color: #39cccc; }
+        .rand-icon { background-color: #2ecc40; }
+        .krona-icon { background-color: #b10dc9; }
+        .ringgit-icon { background-color: #3d9970; }
+        .rupiah-icon { background-color: #ff4136; }
+        .baht-icon { background-color: #7fdbff; }
+        .dong-icon { background-color: #111111; }
+    </style>
+</head>
+<body>
+    <nav>
+        <select onchange="location = this.value;">
+            <option value="#">Navigate</option>
+            <option value="index.html">Home</option>
+            <option value="versionlist.html">Version List</option>
+        </select>
+    </nav>
+    <h1>Foreign Currency Visualizer</h1>
+    <p>Enter a dollar amount and choose a foreign currency to visualize it.</p>
+    <input type="number" id="amount" placeholder="Enter dollar amount" step="0.01" min="0">
+    <select id="denomination">
+        <option value="160">Japanese Yen (160 JPY)</option>
+        <option value="0.735">Euro (0.735 EUR)</option>
+        <option value="0.8">British Pound (0.8 GBP)</option>
+        <option value="1.35">Canadian Dollar (1.35 CAD)</option>
+        <option value="1.02">Swiss Franc (1.02 CHF)</option>
+        <option value="82">Indian Rupee (82 INR)</option>
+        <option value="7.15">Chinese Yuan (7.15 CNY)</option>
+        <option value="1315">South Korean Won (1315 KRW)</option>
+        <option value="5.07">Brazilian Real (5.07 BRL)</option>
+        <option value="20.5">Mexican Peso (20.5 MXN)</option>
+        <option value="26.3">Turkish Lira (26.3 TRY)</option>
+        <option value="0.307">Kuwaiti Dinar (0.307 KWD)</option>
+        <option value="3.7">Israeli Shekel (3.7 ILS)</option>
+        <option value="18.2">South African Rand (18.2 ZAR)</option>
+        <option value="10.5">Swedish Krona (10.5 SEK)</option>
+        <option value="4.4">Malaysian Ringgit (4.4 MYR)</option>
+        <option value="15490">Indonesian Rupiah (15490 IDR)</option>
+        <option value="35.2">Thai Baht (35.2 THB)</option>
+        <option value="23000">Vietnamese Dong (23000 VND)</option>
+    </select>
+    <button onclick="visualizeCurrency()">Visualize</button>
+
+    <div class="output" id="output"></div>
+
+    <footer>
+        <p>Created with 💙 in the Bay Area, CA in 2024</p>
+        <p>Version 1.0</p>
+    </footer>
+
+    <script>
+        // Main function to visualize the currency conversion
+        function visualizeCurrency() {
+            const amount = parseFloat(document.getElementById('amount').value); // Get input amount
+            const exchangeRate = parseFloat(document.getElementById('denomination').value); // Get selected exchange rate
+            const outputDiv = document.getElementById('output'); // Get output div
+
+            if (isNaN(amount) || amount <= 0) {
+                outputDiv.textContent = "Please enter a valid dollar amount.";
+                return;
+            }
+
+            const count = Math.floor(amount * exchangeRate); // Calculate total number of currency units
+
+            // Render output with count of coins or notes
+            outputDiv.innerHTML = `
+                <p>The amount <strong>$${amount.toFixed(2)}</strong> is equivalent to:</p>
+                <p><strong>${count}</strong> units of ${getCurrencyName(exchangeRate)}</p>
+                <div class="image">${getCurrencyImage(exchangeRate, count)}</div>
+            `;
+        }
+
+        // Function to map exchange rate to currency name
+        function getCurrencyName(value) {
+            const names = {
+                160: 'Japanese Yen',
+                0.735: 'Euro',
+                0.8: 'British Pound',
+                1.35: 'Canadian Dollar',
+                1.02: 'Swiss Franc',
+                82: 'Indian Rupee',
+                7.15: 'Chinese Yuan',
+                1315: 'South Korean Won',
+                5.07: 'Brazilian Real',
+                20.5: 'Mexican Peso',
+                26.3: 'Turkish Lira',
+                0.307: 'Kuwaiti Dinar',
+                3.7: 'Israeli Shekel',
+                18.2: 'South African Rand',
+                10.5: 'Swedish Krona',
+                4.4: 'Malaysian Ringgit',
+                15490: 'Indonesian Rupiah',
+                35.2: 'Thai Baht',
+                23000: 'Vietnamese Dong'
+            };
+            return names[value] || `$${value}`;
+        }
+
+        // Function to generate images for the currency units
+        function getCurrencyImage(value, count) {
+            const icons = {
+                160: `<div class="coin yen-icon">¥</div>`,
+                0.735: `<div class="coin euro-icon">€</div>`,
+                0.8: `<div class="coin pound-icon">£</div>`,
+                1.35: `<div class="coin canada-icon">CAD</div>`,
+                1.02: `<div class="coin franc-icon">CHF</div>`,
+                82: `<div class="coin rupee-icon">₹</div>`,
+                7.15: `<div class="coin yuan-icon">元</div>`,
+                1315: `<div class="coin won-icon">₩</div>`,
+                5.07: `<div class="coin real-icon">R$</div>`,
+                20.5: `<div class="coin peso-icon">$</div>`,
+                26.3: `<div class="coin lira-icon">₺</div>`,
+                0.307: `<div class="coin dinar-icon">د.ك</div>`,
+                3.7: `<div class="coin shekel-icon">₪</div>`,
+                18.2: `<div class="coin rand-icon">R</div>`,
+                10.5: `<div class="coin krona-icon">kr</div>`,
+                4.4: `<div class="coin ringgit-icon">RM</div>`,
+                15490: `<div class="coin rupiah-icon">Rp</div>`,
+                35.2: `<div class="coin baht-icon">฿</div>`,
+                23000: `<div class="coin dong-icon">₫</div>`
+            };
+            // Create repeated icons based on count
+            return Array(count).fill(icons[value] || `<div class="coin">$${value}</div>`).join('');
+        }
+    </script>
+</body>
+</html>

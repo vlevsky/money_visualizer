@@ -69,30 +69,19 @@
         .bill-50 { background-color: #1b5e20; } /* Dark green for $50 bills */
         .bill-100 { background-color: #073642; } /* Dark blue for $100 bills */
         .stamp-icon { background-color: #b58900; } /* Gold for Forever Stamp */
-        .yen-icon { background-color: #268bd2; } /* Blue for Japanese Yen */
-        .canada-icon { background-color: #2aa198; } /* Teal for Canadian Dollar */
-        .euro-icon { background-color: #6c71c4; } /* Purple for Euro */
-        .pound-icon { background-color: #cb4b16; } /* Orange for British Pound */
-        .australia-icon { background-color: #2aa198; } /* Teal for Australian Dollar */
-        .franc-icon { background-color: #93a1a1; } /* Silver for Swiss Franc */
-        .rupee-icon { background-color: #859900; } /* Green for Indian Rupee */
-        .yuan-icon { background-color: #b58900; } /* Gold for Chinese Yuan */
-        .won-icon { background-color: #d33682; } /* Pink for South Korean Won */
-        .real-icon { background-color: #268bd2; } /* Blue for Brazilian Real */
-        .spotify-icon { background-color: #1db954; } /* Spotify green */
-        .wage-icon { background-color: #2aa198; } /* Teal for Minimum Wage */
-        .iphone-icon { background-color: #cb4b16; } /* Orange for iPhone */
-        .ten-thousand-icon { background-color: #859900; } /* Green for $10,000 */
-        .fifteen-thousand-icon { background-color: #6c71c4; } /* Purple for Yearly Minimum Wage */
-        .warriors-icon { background-color: #fdb927; } /* Golden for Warriors Ticket */
-        .giants-icon { background-color: #f2552c; } /* Orange for Giants Ticket */
-        .niners-icon { background-color: #aa0000; } /* Red for 49ers Ticket */
-        .boba-icon { background-color: #6c71c4; } /* Purple for Boba */
-        .hamburger-icon { background-color: #cb4b16; } /* Orange for Hamburger */
-        .flight-icon { background-color: #268bd2; } /* Blue for Flight */
+        .special-icon { background-color: #6c71c4; } /* Purple for special items like Boba */
     </style>
 </head>
 <body>
+    <!-- Dropdown menu for navigation -->
+    <nav>
+        <select onchange="location = this.value;">
+            <option value="#">Navigate</option>
+            <option value="foreigncurrencies.html">Foreign Currencies</option>
+            <option value="versionlist.html">Version List</option>
+        </select>
+    </nav>
+
     <h1>Money Visualizer</h1>
     <p>Enter a dollar amount and choose a denomination to visualize it.</p>
     <input type="number" id="amount" placeholder="Enter dollar amount" step="0.01" min="0">
@@ -102,7 +91,7 @@
         <option value="0.10">Dimes</option>
         <option value="0.25">Quarters</option>
         <option value="0.73">Forever Stamp ($0.73)</option>
-        <option value="1">Dollars</option>
+        <option value="1">1 Dollar</option>
         <option value="2">2 Dollars</option>
         <option value="5">5 Dollars</option>
         <option value="10">10 Dollars</option>
@@ -117,36 +106,33 @@
         <option value="275">Flight SFO to FLL ($275)</option>
         <option value="300">49ers Ticket ($300)</option>
         <option value="450">Flight SFO to LHR ($450)</option>
-        <option value="120">Yearly Spotify Subscription ($120)</option>
-        <option value="7.25">Minimum Hour Wage ($7.25)</option>
-        <option value="1250">iPhone ($1250)</option>
-        <option value="10000">$10,000</option>
-        <option value="15080">Yearly Minimum Wage ($15,080)</option>
     </select>
     <button onclick="visualizeMoney()">Visualize</button>
 
     <div class="output" id="output"></div>
 
     <footer>
-        <p>Created with 💙 in the Bay Area, CA in 2024</p>
-        <p>Version 1.0</p>
-        <a href="versionlist.html"><button>Version List</button></a>
+        <p>Created with 💙 in the Bay Area, CA in 2024. Version 1.0</p>
     </footer>
 
     <script>
+        // Main function to visualize the entered amount in the selected denomination
         function visualizeMoney() {
-            const amount = parseFloat(document.getElementById('amount').value);
-            const denomination = parseFloat(document.getElementById('denomination').value);
-            const outputDiv = document.getElementById('output');
+            const amount = parseFloat(document.getElementById('amount').value); // Get the entered amount
+            const denomination = parseFloat(document.getElementById('denomination').value); // Get the selected denomination
+            const outputDiv = document.getElementById('output'); // Output container
 
+            // Validate the amount
             if (isNaN(amount) || amount <= 0) {
                 outputDiv.textContent = "Please enter a valid dollar amount.";
                 return;
             }
 
+            // Calculate the number of units and the remainder
             const count = Math.floor(amount / denomination);
             const remainder = (amount % denomination).toFixed(2);
 
+            // Display the results
             outputDiv.innerHTML = `
                 <p>The amount <strong>$${amount.toFixed(2)}</strong> can be represented as:</p>
                 <p><strong>${count}</strong> x ${getDenominationName(denomination)}${count !== 1 ? 's' : ''}</p>
@@ -155,62 +141,56 @@
             `;
         }
 
+        // Get the name of the denomination
         function getDenominationName(value) {
             const names = {
+                0.01: 'Penny',
+                0.05: 'Nickel',
+                0.10: 'Dime',
+                0.25: 'Quarter',
+                0.73: 'Forever Stamp',
+                1: 'Dollar',
                 2: '$2 Bill',
                 5: '$5 Bill',
                 10: '$10 Bill',
                 20: '$20 Bill',
                 50: '$50 Bill',
                 100: '$100 Bill',
-                15080: 'Yearly Minimum Wage',
-                0.01: 'Penny',
-                0.05: 'Nickel',
-                0.10: 'Dime',
-                0.25: 'Quarter',
-                0.73: 'Forever Stamp',
                 7: 'Boba',
                 12: 'Hamburger',
                 45: 'Giants Ticket',
-                130: 'Warriors Ticket',
-                300: '49ers Ticket',
                 70: 'Flight SFO to LAX',
+                130: 'Warriors Ticket',
                 275: 'Flight SFO to FLL',
-                450: 'Flight SFO to LHR',
-                120: 'Spotify Subscription',
-                7.25: 'Minimum Hour Wage',
-                1250: 'iPhone',
-                10000: '$10,000'
+                300: '49ers Ticket',
+                450: 'Flight SFO to LHR'
             };
             return names[value] || `$${value}`;
         }
 
+        // Generate the visualization icons for the selected denomination
         function getDenominationImage(value, count) {
             const icons = {
+                0.01: `<div class="coin penny">1¢</div>`,
+                0.05: `<div class="coin nickel">5¢</div>`,
+                0.10: `<div class="coin dime">10¢</div>`,
+                0.25: `<div class="coin quarter">25¢</div>`,
+                0.73: `<div class="coin stamp-icon">📤</div>`,
+                1: `<div class="coin dollar">$1</div>`,
                 2: `<div class="coin bill-2">$2</div>`,
                 5: `<div class="coin bill-5">$5</div>`,
                 10: `<div class="coin bill-10">$10</div>`,
                 20: `<div class="coin bill-20">$20</div>`,
                 50: `<div class="coin bill-50">$50</div>`,
                 100: `<div class="coin bill-100">$100</div>`,
-                15080: `<div class="coin fifteen-thousand-icon">💵</div>`,
-                0.01: `<div class="coin penny">1¢</div>`,
-                0.05: `<div class="coin nickel">5¢</div>`,
-                0.10: `<div class="coin dime">10¢</div>`,
-                0.25: `<div class="coin quarter">25¢</div>`,
-                0.73: `<div class="coin stamp-icon">📬</div>`,
-                7: `<div class="coin boba-icon">🧋</div>`,
-                12: `<div class="coin hamburger-icon">🍔</div>`,
-                45: `<div class="coin giants-icon">⚾</div>`,
-                130: `<div class="coin warriors-icon">🏀</div>`,
-                300: `<div class="coin niners-icon">🏈</div>`,
-                70: `<div class="coin flight-icon">✈️</div>`,
-                275: `<div class="coin flight-icon">✈️</div>`,
-                450: `<div class="coin flight-icon">✈️</div>`,
-                120: `<div class="coin spotify-icon">🎶</div>`,
-                7.25: `<div class="coin wage-icon">💼</div>`,
-                1250: `<div class="coin iphone-icon">📱</div>`,
-                10000: `<div class="coin ten-thousand-icon">💰</div>`
+                7: `<div class="coin special-icon">🧋</div>`,
+                12: `<div class="coin special-icon">🍔</div>`,
+                45: `<div class="coin special-icon">⚾</div>`,
+                70: `<div class="coin special-icon">✈️</div>`,
+                130: `<div class="coin special-icon">🏀</div>`,
+                275: `<div class="coin special-icon">✈️</div>`,
+                300: `<div class="coin special-icon">🏈</div>`,
+                450: `<div class="coin special-icon">✈️</div>`
             };
             return Array(count).fill(icons[value] || `<div class="coin">$${value}</div>`).join('');
         }
