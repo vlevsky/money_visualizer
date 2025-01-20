@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <a href="index.html"><button>Go Home</button></a>
+    <title>Food Visualizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+            background-color: #1c3b99; /* Deep Royal Blue */
+            color: #ffffff;
+        }
+        input, select, button {
+            font-size: 16px;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #005f8a; /* Royal blue border */
+            border-radius: 8px;
+        }
+        button {
+            background-color: #006f3f; /* Rolex green */
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        button:hover {
+            background-color: #005f8a; /* Cool blue */
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 95, 138, 0.6); /* Enhanced shadow effect */
+        }
+        button:active {
+            background-color: #004d2d; /* Dark green when active */
+        }
+        .output {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .image {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        /* Food item styling */
+        .food-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 8px;
+            font-weight: bold;
+            color: white;
+            font-size: 18px;
+        }
+        /* Colors for food items */
+        .boba { background-color: #d2691e; } /* Brown for boba */
+        .hamburger { background-color: #ff6347; } /* Red for hamburger */
+        .soda { background-color: #4682b4; } /* Blue for soda */
+        .gum { background-color: #32cd32; } /* Green for gum */
+        .candy { background-color: #ff69b4; } /* Pink for candy */
+    </style>
+</head>
+<body>
+    <h1>Food Visualizer</h1>
+    <p>Enter a dollar amount and choose a food item to visualize it.</p>
+
+    <!-- Input for amount -->
+    <input type="number" id="amount" placeholder="Enter dollar amount" step="0.01" min="0">
+
+    <!-- Dropdown menu for food items -->
+    <select id="food">
+        <option value="7">Boba ($7)</option>
+        <option value="11">Hamburger ($11)</option>
+        <option value="3.5">Soda ($3.50)</option>
+        <option value="3">Gum ($3)</option>
+        <option value="2.5">Candy ($2.50)</option>
+    </select>
+
+    <!-- Button to visualize the entered amount -->
+    <button onclick="visualizeFood()">Visualize</button>
+
+    <!-- Output container -->
+    <div class="output" id="output"></div>
+
+    <footer>
+        <p>Created with 💙 in the Bay Area, CA in 2024. Version 3.0</p>
+    </footer>
+
+    <script>
+        // Function to visualize the entered amount in terms of selected food items
+        function visualizeFood() {
+            const amount = parseFloat(document.getElementById('amount').value); // Get the entered amount
+            const foodPrice = parseFloat(document.getElementById('food').value); // Get the selected food item price
+            const outputDiv = document.getElementById('output'); // Output container
+
+            // Validate the amount
+            if (isNaN(amount) || amount <= 0) {
+                outputDiv.textContent = "Please enter a valid dollar amount.";
+                return;
+            }
+
+            // Calculate the number of items and the remainder
+            const count = Math.floor(amount / foodPrice);
+            const remainder = (amount % foodPrice).toFixed(2);
+
+            // Display the results
+            outputDiv.innerHTML = `
+                <p>The amount <strong>$${amount.toFixed(2)}</strong> can be represented as:</p>
+                <p><strong>${count}</strong> x ${getFoodName(foodPrice)}${count !== 1 ? 's' : ''}</p>
+                ${remainder > 0 ? `<p>Remaining: <strong>$${remainder}</strong></p>` : ''}
+                <div class="image">${getFoodIcon(foodPrice, count)}</div>
+            `;
+        }
+
+        // Get the name of the food item based on price
+        function getFoodName(price) {
+            const names = {
+                7: 'Boba',
+                11: 'Hamburger',
+                3.5: 'Soda',
+                3: 'Gum',
+                2.5: 'Candy'
+            };
+            return names[price] || `$${price}`;
+        }
+
+        // Generate the visualization icons for the selected food item
+        function getFoodIcon(price, count) {
+            const icons = {
+                7: `<div class="food-icon boba">🧋</div>`,
+                11: `<div class="food-icon hamburger">🍔</div>`,
+                3.5: `<div class="food-icon soda">🥤</div>`,
+                3: `<div class="food-icon gum">🍬</div>`,
+                2.5: `<div class="food-icon candy">🍫</div>`
+            };
+            return Array(count).fill(icons[price] || `<div class="food-icon">$${price}</div>`).join('');
+        }
+    </script>
+</body>
+</html>

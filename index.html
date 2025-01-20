@@ -66,10 +66,19 @@
         .bill-5 { background-color: #268bd2; } /* Royal blue for $5 bills */
         .bill-10 { background-color: #cb4b16; } /* Orange for $10 bills */
         .bill-20 { background-color: #2aa198; } /* Teal for $20 bills */
+        .bill-25 { background-color: #b58900; } /* Gold for $25 bills */
         .bill-50 { background-color: #1b5e20; } /* Dark green for $50 bills */
+        .bill-75 { background-color: #6c71c4; } /* Purple for $75 bills */
         .bill-100 { background-color: #073642; } /* Dark blue for $100 bills */
+        .bill-200 { background-color: #e57f21; } /* Orange for $200 bills */
+        .bill-250 { background-color: #ff6f61; } /* Coral for $250 bills */
+        .bill-500 { background-color: #d9534f; } /* Red for $500 bills */
+        .bill-750 { background-color: #a5d6a7; } /* Light green for $750 bills */
+        .bill-1000 { background-color: #1a237e; } /* Dark blue for $1,000 bills */
+        .bill-2500 { background-color: #00796b; } /* Teal for $2,500 bills */
+        .bill-5000 { background-color: #c2185b; } /* Fuchsia for $5,000 bills */
+        .bill-10000 { background-color: #0288d1; } /* Blue for $10,000 bills */
         .stamp-icon { background-color: #b58900; } /* Gold for Forever Stamp */
-        .special-icon { background-color: #6c71c4; } /* Purple for special items like Boba */
     </style>
 </head>
 <body>
@@ -78,12 +87,14 @@
         <select onchange="location = this.value;">
             <option value="#">Navigate</option>
             <option value="foreigncurrencies.html">Foreign Currencies</option>
+            <option value="food.html">Food</option>
             <option value="versionlist.html">Version List</option>
+            <option value="https://bit.ly/money-visualizer-suggestionbox">Suggestion Box</option>
         </select>
     </nav>
 
     <h1>Money Visualizer</h1>
-    <p>Enter a dollar amount and choose a denomination to visualize it.</p>
+    <p>Enter a dollar amount (USD) and choose a denomination to visualize it.</p>
     <input type="number" id="amount" placeholder="Enter dollar amount" step="0.01" min="0">
     <select id="denomination">
         <option value="0.01">Pennies</option>
@@ -96,23 +107,25 @@
         <option value="5">5 Dollars</option>
         <option value="10">10 Dollars</option>
         <option value="20">20 Dollars</option>
+        <option value="25">25 Dollars</option>
         <option value="50">50 Dollars</option>
+        <option value="75">75 Dollars</option>
         <option value="100">100 Dollars</option>
-        <option value="7">Boba ($7)</option>
-        <option value="12">Hamburger ($12)</option>
-        <option value="45">Giants Ticket ($45)</option>
-        <option value="70">Flight SFO to LAX ($70)</option>
-        <option value="130">Warriors Ticket ($130)</option>
-        <option value="275">Flight SFO to FLL ($275)</option>
-        <option value="300">49ers Ticket ($300)</option>
-        <option value="450">Flight SFO to LHR ($450)</option>
+        <option value="200">200 Dollars</option>
+        <option value="250">250 Dollars</option>
+        <option value="500">500 Dollars</option>
+        <option value="750">750 Dollars</option>
+        <option value="1000">1,000 Dollars</option>
+        <option value="2500">2,500 Dollars</option>
+        <option value="5000">5,000 Dollars</option>
+        <option value="10000">10,000 Dollars</option>
     </select>
     <button onclick="visualizeMoney()">Visualize</button>
 
     <div class="output" id="output"></div>
 
     <footer>
-        <p>Created with 💙 in the Bay Area, CA in 2024. Version 1.0</p>
+        <p>Created with 💙 in the Bay Area, CA in 2024. Version 3.0</p>
     </footer>
 
     <script>
@@ -154,16 +167,18 @@
                 5: '$5 Bill',
                 10: '$10 Bill',
                 20: '$20 Bill',
+                25: '$25 Bill',
                 50: '$50 Bill',
+                75: '$75 Bill',
                 100: '$100 Bill',
-                7: 'Boba',
-                12: 'Hamburger',
-                45: 'Giants Ticket',
-                70: 'Flight SFO to LAX',
-                130: 'Warriors Ticket',
-                275: 'Flight SFO to FLL',
-                300: '49ers Ticket',
-                450: 'Flight SFO to LHR'
+                200: '$200 Bill',
+                250: '$250 Bill',
+                500: '$500 Bill',
+                750: '$750 Bill',
+                1000: '$1,000 Bill',
+                2500: '$2,500 Bill',
+                5000: '$5,000 Bill',
+                10000: '$10,000 Bill'
             };
             return names[value] || `$${value}`;
         }
@@ -181,16 +196,18 @@
                 5: `<div class="coin bill-5">$5</div>`,
                 10: `<div class="coin bill-10">$10</div>`,
                 20: `<div class="coin bill-20">$20</div>`,
+                25: `<div class="coin bill-25">$25</div>`,
                 50: `<div class="coin bill-50">$50</div>`,
+                75: `<div class="coin bill-75">$75</div>`,
                 100: `<div class="coin bill-100">$100</div>`,
-                7: `<div class="coin special-icon">🧋</div>`,
-                12: `<div class="coin special-icon">🍔</div>`,
-                45: `<div class="coin special-icon">⚾</div>`,
-                70: `<div class="coin special-icon">✈️</div>`,
-                130: `<div class="coin special-icon">🏀</div>`,
-                275: `<div class="coin special-icon">✈️</div>`,
-                300: `<div class="coin special-icon">🏈</div>`,
-                450: `<div class="coin special-icon">✈️</div>`
+                200: `<div class="coin bill-200">$200</div>`,
+                250: `<div class="coin bill-250">$250</div>`,
+                500: `<div class="coin bill-500">$500</div>`,
+                750: `<div class="coin bill-750">$750</div>`,
+                1000: `<div class="coin bill-1000">$1,000</div>`,
+                2500: `<div class="coin bill-2500">$2,500</div>`,
+                5000: `<div class="coin bill-5000">$5,000</div>`,
+                10000: `<div class="coin bill-10000">$10,000</div>`
             };
             return Array(count).fill(icons[value] || `<div class="coin">$${value}</div>`).join('');
         }
