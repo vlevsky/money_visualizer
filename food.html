@@ -59,10 +59,15 @@
         }
         /* Colors for food items */
         .boba { background-color: #d2691e; } /* Brown for boba */
-        .hamburger { background-color: #ff6347; } /* Red for hamburger */
-        .soda { background-color: #4682b4; } /* Blue for soda */
-        .gum { background-color: #32cd32; } /* Green for gum */
         .candy { background-color: #ff69b4; } /* Pink for candy */
+        .cookie { background-color: #f4a261; } /* Cookie color */
+        .gum { background-color: #32cd32; } /* Green for gum */
+        .chips { background-color: #ffcc00; } /* Yellow for chips */
+        .soda { background-color: #4682b4; } /* Blue for soda */
+        .hamburger { background-color: #ff6347; } /* Red for hamburger */
+        .pretzel { background-color: #deb887; } /* Light brown for pretzel */
+        .salad { background-color: #228b22; } /* Green for salad */
+        .beef_wellington { background-color: #8b4513; } /* Brown for Beef Wellington */
     </style>
 </head>
 <body>
@@ -74,11 +79,16 @@
 
     <!-- Dropdown menu for food items -->
     <select id="food">
-        <option value="7">Boba ($7)</option>
-        <option value="11">Hamburger ($11)</option>
+        <option value="2">Candy ($2)</option>
+        <option value="2.5">Chips ($2.50)</option>
+        <option value="2.75">Gum ($2.75)</option>
+        <option value="3">Cookie ($3)</option>
         <option value="3.5">Soda ($3.50)</option>
-        <option value="3">Gum ($3)</option>
-        <option value="2.5">Candy ($2.50)</option>
+        <option value="6.5">Soft Pretzel ($6.50)</option>
+        <option value="7">Boba ($7)</option>
+        <option value="9">Salad ($9)</option>
+        <option value="11">Hamburger ($11)</option>
+        <option value="85">Beef Wellington ($85)</option>
     </select>
 
     <!-- Button to visualize the entered amount -->
@@ -88,7 +98,8 @@
     <div class="output" id="output"></div>
 
     <footer>
-        <p>Created with 💙 in the Bay Area, CA in 2024. Version 3.0</p>
+        <p>Created with 💙 in the Bay Area, CA in 2024. </p>
+        <p>Version 3.1</p>
     </footer>
 
     <script>
@@ -120,11 +131,16 @@
         // Get the name of the food item based on price
         function getFoodName(price) {
             const names = {
-                7: 'Boba',
-                11: 'Hamburger',
+                2: 'Candy',
+                2.5: 'Chips',
+                2.75: 'Gum',
+                3: 'Cookie',
                 3.5: 'Soda',
-                3: 'Gum',
-                2.5: 'Candy'
+                6.5: 'Soft Pretzel',
+                7: 'Boba',
+                9: 'Salad',
+                11: 'Hamburger',
+                85: 'Beef Wellington'
             };
             return names[price] || `$${price}`;
         }
@@ -132,11 +148,16 @@
         // Generate the visualization icons for the selected food item
         function getFoodIcon(price, count) {
             const icons = {
-                7: `<div class="food-icon boba">🧋</div>`,
-                11: `<div class="food-icon hamburger">🍔</div>`,
+                2: `<div class="food-icon candy">🍬</div>`,
+                2.5: `<div class="food-icon chips">🍟</div>`,
+                2.75: `<div class="food-icon gum">🍬</div>`,
+                3: `<div class="food-icon cookie">🍪</div>`,
                 3.5: `<div class="food-icon soda">🥤</div>`,
-                3: `<div class="food-icon gum">🍬</div>`,
-                2.5: `<div class="food-icon candy">🍫</div>`
+                6.5: `<div class="food-icon pretzel">🥨</div>`,
+                7: `<div class="food-icon boba">🧋</div>`,
+                9: `<div class="food-icon salad">🥗</div>`,
+                11: `<div class="food-icon hamburger">🍔</div>`,
+                85: `<div class="food-icon beef_wellington">🥩</div>`
             };
             return Array(count).fill(icons[price] || `<div class="food-icon">$${price}</div>`).join('');
         }

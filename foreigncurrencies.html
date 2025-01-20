@@ -75,6 +75,21 @@
         .rupiah-icon { background-color: #ff4136; }
         .baht-icon { background-color: #7fdbff; }
         .dong-icon { background-color: #111111; }
+        .aud-icon { background-color: #f39c12; }
+        .sgd-icon { background-color: #16a085; }
+        .nzd-icon { background-color: #2980b9; }
+        .hkd-icon { background-color: #8e44ad; }
+        .php-icon { background-color: #d35400; }
+        .rub-icon { background-color: #34495e; }
+        .egp-icon { background-color: #e74c3c; }
+        .ars-icon { background-color: #f1c40f; }
+        .clp-icon { background-color: #2ecc71; }
+        .ngn-icon { background-color: #9b59b6; }
+        .pen-icon { background-color: #e67e22; }
+        .cop-icon { background-color: #34495e; }
+        .nok-icon { background-color: #16a085; }
+        .pkr-icon { background-color: #d35400; }
+        .bdt-icon { background-color: #e74c3c; }
     </style>
 </head>
 <body>
@@ -101,6 +116,22 @@
         <option value="15490">Indonesian Rupiah (15490 IDR)</option>
         <option value="35.2">Thai Baht (35.2 THB)</option>
         <option value="23000">Vietnamese Dong (23000 VND)</option>
+        <!-- New 20 currencies -->
+        <option value="1.58">Australian Dollar (1.58 AUD)</option>
+        <option value="8.3">Singapore Dollar (8.3 SGD)</option>
+        <option value="1.65">New Zealand Dollar (1.65 NZD)</option>
+        <option value="3.85">Hong Kong Dollar (3.85 HKD)</option>
+        <option value="6.7">Philippine Peso (6.7 PHP)</option>
+        <option value="3.5">Russian Ruble (3.5 RUB)</option>
+        <option value="27.9">Egyptian Pound (27.9 EGP)</option>
+        <option value="2.5">Argentine Peso (2.5 ARS)</option>
+        <option value="5.8">Chilean Peso (5.8 CLP)</option>
+        <option value="0.55">Nigerian Naira (0.55 NGN)</option>
+        <option value="8.9">Peruvian Nuevo Sol (8.9 PEN)</option>
+        <option value="4.2">Colombian Peso (4.2 COP)</option>
+        <option value="1.19">Norwegian Krone (1.19 NOK)</option>
+        <option value="3.1">Pakistani Rupee (3.1 PKR)</option>
+        <option value="11.8">Bangladeshi Taka (11.8 BDT)</option>
     </select>
     <button onclick="visualizeCurrency()">Visualize</button>
 
@@ -108,7 +139,7 @@
 
     <footer>
         <p>Created with 💙 in the Bay Area, CA in 2024</p>
-        <p>Version 3.0</p>
+        <p>Version 3.1</p>
     </footer>
 
     <script>
@@ -154,7 +185,22 @@
                 4.4: 'Malaysian Ringgit',
                 15490: 'Indonesian Rupiah',
                 35.2: 'Thai Baht',
-                23000: 'Vietnamese Dong'
+                23000: 'Vietnamese Dong',
+                1.58: 'Australian Dollar',
+                8.3: 'Singapore Dollar',
+                1.65: 'New Zealand Dollar',
+                3.85: 'Hong Kong Dollar',
+                6.7: 'Philippine Peso',
+                3.5: 'Russian Ruble',
+                27.9: 'Egyptian Pound',
+                2.5: 'Argentine Peso',
+                5.8: 'Chilean Peso',
+                0.55: 'Nigerian Naira',
+                8.9: 'Peruvian Nuevo Sol',
+                4.2: 'Colombian Peso',
+                1.19: 'Norwegian Krone',
+                3.1: 'Pakistani Rupee',
+                11.8: 'Bangladeshi Taka'
             };
             return names[value] || `$${value}`;
         }
@@ -180,7 +226,22 @@
                 4.4: `<div class="coin ringgit-icon">RM</div>`,
                 15490: `<div class="coin rupiah-icon">Rp</div>`,
                 35.2: `<div class="coin baht-icon">฿</div>`,
-                23000: `<div class="coin dong-icon">₫</div>`
+                23000: `<div class="coin dong-icon">₫</div>`,
+                1.58: `<div class="coin aud-icon">A$</div>`,
+                8.3: `<div class="coin sgd-icon">S$</div>`,
+                1.65: `<div class="coin nzd-icon">NZ$</div>`,
+                3.85: `<div class="coin hkd-icon">HK$</div>`,
+                6.7: `<div class="coin php-icon">₱</div>`,
+                3.5: `<div class="coin rub-icon">₽</div>`,
+                27.9: `<div class="coin egp-icon">ج.م</div>`,
+                2.5: `<div class="coin ars-icon">ARS</div>`,
+                5.8: `<div class="coin clp-icon">$</div>`,
+                0.55: `<div class="coin ngn-icon">₦</div>`,
+                8.9: `<div class="coin pen-icon">S/.</div>`,
+                4.2: `<div class="coin cop-icon">$</div>`,
+                1.19: `<div class="coin nok-icon">kr</div>`,
+                3.1: `<div class="coin pkr-icon">₨</div>`,
+                11.8: `<div class="coin bdt-icon">৳</div>`
             };
             // Create repeated icons based on count
             return Array(count).fill(icons[value] || `<div class="coin">$${value}</div>`).join('');
