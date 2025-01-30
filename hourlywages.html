@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-W399X2C6J8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W399X2C6J8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-W399X2C6J8');
-</script>
+      gtag('config', 'G-W399X2C6J8');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hourly Wage Visualizer</title>
@@ -37,7 +37,7 @@
         button:hover {
             background-color: #005f8a;
             transform: scale(1.1);
-            box-shadow: 0 6px 12px rgba(0, 95, 138, 0.6);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
         .output {
             margin-top: 20px;
@@ -145,8 +145,47 @@
 
     <footer>
         <p>Created with 💙 in the Bay Area, CA in 2025. </p>
-        <p>Version 4.1</p>
+        <p>Version 4.2</p>
     </footer>
-    
+
+    <script>
+        function calculate() {
+            // Get the user input values
+            const amount = parseFloat(document.getElementById("amount").value);
+            const stateSelect = document.getElementById("state");
+            const stateWage = parseFloat(stateSelect.value);
+            const stateName = stateSelect.options[stateSelect.selectedIndex].text;
+
+            if (isNaN(amount) || amount <= 0) {
+                alert("Please enter a valid dollar amount.");
+                return;
+            }
+
+            // Calculate hours required
+            const hours = (amount / stateWage).toFixed(2);
+
+            // Update the output
+            const output = document.getElementById("output");
+            output.textContent = `It will take ${hours} hours to earn $${amount} in ${stateName}.`;
+
+            // Calculate the remaining wage to be earned if it's fractional
+            const remaining = amount % stateWage;
+            const remainingText = remaining > 0 ? `You still need to earn $${remaining.toFixed(2)} to reach $${amount}.` : '';
+            document.getElementById("remaining").textContent = remainingText;
+
+            // Visualize the coins
+            const coinsContainer = document.getElementById("coins");
+            coinsContainer.innerHTML = ""; // Clear previous coins
+            const numCoins = Math.floor(amount / stateWage); // Number of full coins (representing full hours)
+            for (let i = 0; i < numCoins; i++) {
+                const coin = document.createElement("div");
+                coin.className = "coin";
+                coin.style.backgroundColor = stateSelect.options[stateSelect.selectedIndex].dataset.color;
+                coin.textContent = "$" + stateWage.toFixed(2);
+                coinsContainer.appendChild(coin);
+            }
+        }
+    </script>
+
 </body>
 </html>
